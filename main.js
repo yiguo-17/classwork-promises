@@ -22,8 +22,23 @@
 // In your second thenable log a String
 // that says `Here is the result of my random number multiplied
 // by 5: < place number result here>`
-
-
+let myFirstPromise = new Promise((resolve,reject)=>{
+  let boo = true;
+  let rand = Math.round(Math.random()*10);
+  setTimeout(() => {
+    if(boo){resolve(rand)}
+  else{reject('Cannot computer random number')}
+  }, 2000); 
+})
+myFirstPromise.then((num)=>{
+  console.log(`I have my random number ${num} and I will multiply it by 5`);
+  let fiv = num*5;
+  return fiv
+}).then((num)=>{
+  console.log(`Here is the result of my random number multiplied by 5: ${num}`)
+}).catch((message)=>{
+  console.log(message)
+})
 
 
 // 2.
@@ -44,3 +59,18 @@ let data = [
   { firstName: 'Doug', lastName: 'Lawson' },
   { firstName: 'Sandra', lastName: 'Mathers' },
 ];
+function getDataPromise(obj){
+  return new Promise((resolve,reject)=>{
+    let error = true;
+    setTimeout(()=>{
+      if(!error){
+        reject('Something went wrong')
+      }
+      else{resolve(obj)}
+    },4000)
+  })
+}
+
+data.map((person)=>getDataPromise(person).then((obj)=>{
+  console.log(`Hello ${obj.firstName} ${obj.lastName}`)
+}).catch((message)=>{console.log(message)}))
