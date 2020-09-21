@@ -63,7 +63,7 @@ function getDataPromise(obj){
   return new Promise((resolve,reject)=>{
     let error = true;
     setTimeout(()=>{
-      if(!error){
+      if(error){
         reject('Something went wrong')
       }
       else{resolve(obj)}
